@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrello Betrag-Berechner und Rechnung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .category h2 {
+            font-size: 20px;
+            color: #444;
+        }
+        label {
+            display: block;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        input[type="number"] {
+            width: 50px;
+            margin-left: 10px;
+        }
+        .invoice-section {
+            margin-top: 30px;
+            font-size: 18px;
+        }
+        .invoice-section p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Carrello Betrag-Berechner</h1>
+
+        <!-- Bestellung Kategorien -->
+        <div class="category">
+            <h2>🍕 PIZZA</h2>
+            <label>
+                <input type="checkbox" class="pizza" data-price="250"> Pizza Alfonso - 250€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="300"> Pizza Fungi - 300€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="350"> Pizza Mozzarella - 350€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="500"> Pizza Olive - 500€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="150"> Pizza Salami - 150€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="400"> Pizza Tuna - 400€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" />
+            </label>
+        </div>
+
+        <div class="category">
+            <h2>🍔 SNACKS & BURGER</h2>
+            <label><input type="checkbox" class="burger" value="200"> 6 Hotwings - 200€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="250"> Baconfries - 250€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="300"> Big Mac - 300€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="350"> Big Tasty Bacon - 350€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="300"> Cheese Crunch Burger - 300€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="250"> Cheeseburger - 250€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="200"> Hamburger - 200€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="150"> Croissant - 150€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="200"> Gemischter Salat - 200€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+            <label><input type="checkbox" class="burger" value="250"> Mozzarella Sticks - 250€ <input type="number" class="quantity" data-item="burger" value="1" min="1" /></label>
+        </div>
+
+        <div class="category">
+            <h2>🥤 GETRÄNKE</h2>
+            <label><input type="checkbox" class="getraenk" value="100"> Coca Cola (groß) - 100€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+            <label><input type="checkbox" class="getraenk" value="50"> Wasser - 50€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+            <label><input type="checkbox" class="getraenk" value="75"> Apfelsaft - 75€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+            <label><input type="checkbox" class="getraenk" value="50"> Cola (klein) - 50€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+            <label><input type="checkbox" class="getraenk" value="100"> Fanta (groß) - 100€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+            <label><input type="checkbox" class="getraenk" value="75"> Limonade - 75€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+            <label><input type="checkbox" class="getraenk" value="50"> Kaffee - 50€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" /></label>
+        </div>
+
+        <div class="category">
+            <h2>🍨 NACHTISCH</h2>
+            <label><input type="checkbox" class="nachtisch" value="150"> Himbeerdonut - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" /></label>
+            <label><input type="checkbox" class="nachtisch" value="100"> Joghurt - 100€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" /></label>
+            <label><input type="checkbox" class="nachtisch" value="200"> Eisbecher - 200€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" /></label>
+            <label><input type="checkbox" class="nachtisch" value="150"> Erdbeer-Shake - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" /></label>
+            <label><input type="checkbox" class="nachtisch" value="150"> Erdbeer-Eis - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" /></label>
+            <label><input type="checkbox" class="nachtisch" value="150"> Greentea-Eis - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" /></label>
+        </div>
+
+        <div class="category">
+            <h2>📅 RESERVIERUNG / BESTELLUNG / MIETUNG / LIEFERUNG</h2>
+            <label><input type="checkbox" class="extra" value="1500"> Tischreservierung - 1500€</label>
+            <label><input type="checkbox" class="extra" value="10000"> Geschlossene Gesellschaft (pro Stunde) - 10.000€</label>
+            <label><input type="checkbox" class="extra" value="20000"> Mietung (pro Stunde) - 20.000€</label>
+            <label><input type="checkbox" class="extra" value="1500"> Lieferung (innerhalb der Stadt) - 1500€</label>
+            <label><input type="checkbox" class="extra" value="3000"> Lieferung (außerorts) - 3000€</label>
+        </div>
+
+        <!-- Prozentsatz Berechnung für Rabatte -->
+        <div class="percentage-section">
+            <h2>Prozentberechnung für Organisationen</h2>
+            <label><input type="checkbox" id="polizei" value="15"> Polizei (15% Rabatt)</label>
+            <label><input type="checkbox" id="feuerwehr" value="15"> Feuerwehr (15% Rabatt)</label>
+            <label><input type="checkbox" id="rettung" value="10"> Rettung (10% Rabatt)</label>
+            <label><input type="checkbox" id="adac" value="3"> ADAC (3% Rabatt)</label>
+ 
+   <button onclick="calculateTotal()">Berechnen</button>
+
+            <div class="total">
+                Gesamtbetrag nach Rabatten: <span id="Total">0€</span>
+            </div>
+        </div>
+
+        <!-- Button für die Rechnung -->
+        <button onclick="sendInvoiceToDiscord()">Rechnung per Discord senden</button>
+    </div>
+
+    <script>
+        const discordWebhookURL = 'https://discord.com/api/webhooks/1331810538317025330/XhMJmPovII7423zEwNZhfFTIOM86S0-9U0x-6eW3HAFVYfsZVMUU32AaRPIgN2A0IPpc';
+
+        function calculateTotal() {
+            let total = 0;
+            let orderDetails = '';
+
+            // Pizzas
+            document.querySelectorAll('.pizza').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.dataset.price) * parseInt(quantity);
+                }
+            });
+
+            // Snacks & Burger
+            document.querySelectorAll('.burger').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.value) * parseInt(quantity);
+                }
+            });
+
+            // Getränke
+            document.querySelectorAll('.getraenk').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.value) * parseInt(quantity);
+                }
+            });
+
+            // Nachtisch
+            document.querySelectorAll('.nachtisch').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.value) * parseInt(quantity);
+                }
+            });
+
+            // Zusatzartikel
+            document.querySelectorAll('.extra').forEach(item => {
+                if (item.checked) {
+                    orderDetails += `${item.parentElement.textContent.trim()}\n`;
+                    total += parseInt(item.value);
+                }
+            });
+
+            // Rabatt
+            let discount = 0;
+            if (document.getElementById('polizei').checked) {
+                discount += 15;
+            }
+            if (document.getElementById('feuerwehr').checked) {
+                discount += 15;
+            }
+            if (document.getElementById('rettung').checked) {
+                discount += 10;
+            }
+            if (document.getElementById('adac').checked) {
+                discount += 3;
+            }
+
+            total = total - (total * (discount / 100));
+
+            // Endbetrag anzeigen
+            document.getElementById('totalAmount').textContent = total.toFixed(2) + "€";
+            document.getElementById('finalAmount').textContent = total.toFixed(2) + "€";
+        }
+
+        function sendInvoiceToDiscord() {
+            let orderDetails = '';
+            let total = 0;
+
+            // Sammle alle bestellten Items
+            document.querySelectorAll('.pizza').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.dataset.price) * parseInt(quantity);
+                }
+            });
+
+            // Snacks & Burger
+            document.querySelectorAll('.burger').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.value) * parseInt(quantity);
+                }
+            });
+
+            // Getränke
+            document.querySelectorAll('.getraenk').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.value) * parseInt(quantity);
+                }
+            });
+
+            // Nachtisch
+            document.querySelectorAll('.nachtisch').forEach(item => {
+                if (item.checked) {
+                    const quantity = item.parentElement.querySelector('.quantity').value;
+                    orderDetails += `${item.parentElement.textContent.trim()} x ${quantity}\n`;
+                    total += parseInt(item.value) * parseInt(quantity);
+                }
+            });
+
+            // Zusatzartikel
+            document.querySelectorAll('.extra').forEach(item => {
+                if (item.checked) {
+                    orderDetails += `${item.parentElement.textContent.trim()}\n`;
+                    total += parseInt(item.value);
+                }
+            });
+
+            // Rabatt
+            let discount = 0;
+            if (document.getElementById('polizei').checked) {
+                discount += 15;
+            }
+            if (document.getElementById('feuerwehr').checked) {
+                discount += 15;
+            }
+            if (document.getElementById('rettung').checked) {
+                discount += 10;
+            }
+            if (document.getElementById('adac').checked) {
+                discount += 3;
+            }
+
+            total = total - (total * (discount / 100));
+
+            // Rechnung an Discord Webhook senden
+            const message = {
+                content: `Neue Bestellung:\n${orderDetails}\nGesamtbetrag: ${total.toFixed(2)}€`
+            };
+
+            fetch(discordWebhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Rechnung an Discord gesendet:', data);
+            })
+            .catch((error) => {
+                console.error('Fehler beim Senden der Rechnung:', error);
+            });
+        }
+    </script>
+
+</body>
+</html>
