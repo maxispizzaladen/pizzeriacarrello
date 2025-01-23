@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrello Rechnung Erstellen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .category {
+            margin-bottom: 20px;
+        }
+        .category h2 {
+            font-size: 20px;
+            color: #444;
+        }
+        .category label {
+            display: block;
+            margin: 5px 0;
+        }
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="number"] {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Carrello Rechnung Erstellen</h1>
+
+        <!-- PIZZA KATEGORIE -->
+        <div class="category">
+            <h2>🍕 PIZZA</h2>
+            <label>
+                <input type="checkbox" class="pizza" data-price="250" onchange="updateTotal()"> Pizza Alfonso - 250€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" onchange="updateTotal()" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="300" onchange="updateTotal()"> Pizza Fungi - 300€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" onchange="updateTotal()" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="350" onchange="updateTotal()"> Pizza Mozzarella - 350€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" onchange="updateTotal()" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="500" onchange="updateTotal()"> Pizza Olive - 500€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" onchange="updateTotal()" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="150" onchange="updateTotal()"> Pizza Salami - 150€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" onchange="updateTotal()" />
+            </label>
+            <label>
+                <input type="checkbox" class="pizza" data-price="400" onchange="updateTotal()"> Pizza Tuna - 400€
+                <input type="number" class="quantity" data-item="pizza" value="1" min="1" onchange="updateTotal()" />
+            </label>
+        </div>
+
+        <!-- SNACKS & BURGER -->
+        <div class="category">
+            <h2>🍔 SNACKS & BURGER</h2>
+            <label><input type="checkbox" class="burger" data-price="200" onchange="updateTotal()"> 6 Hotwings - 200€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="250" onchange="updateTotal()"> Baconfries - 250€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="300" onchange="updateTotal()"> Big Mac - 300€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="350" onchange="updateTotal()"> Big Tasty Bacon - 350€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="300" onchange="updateTotal()"> Cheese Crunch Burger - 300€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="250" onchange="updateTotal()"> Cheeseburger - 250€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="200" onchange="updateTotal()"> Hamburger - 200€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="150" onchange="updateTotal()"> Croissant - 150€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="200" onchange="updateTotal()"> Gemischter Salat - 200€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="burger" data-price="250" onchange="updateTotal()"> Mozzarella Sticks - 250€ <input type="number" class="quantity" data-item="burger" value="1" min="1" onchange="updateTotal()" /></label>
+        </div>
+
+        <!-- GETRÄNKE -->
+        <div class="category">
+            <h2>🥤 GETRÄNKE</h2>
+            <label><input type="checkbox" class="getraenk" data-price="100" onchange="updateTotal()"> Coca Cola (groß) - 100€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="getraenk" data-price="50" onchange="updateTotal()"> Wasser - 50€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="getraenk" data-price="75" onchange="updateTotal()"> Apfelsaft - 75€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="getraenk" data-price="50" onchange="updateTotal()"> Cola (klein) - 50€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="getraenk" data-price="100" onchange="updateTotal()"> Fanta (groß) - 100€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="getraenk" data-price="75" onchange="updateTotal()"> Limonade - 75€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="getraenk" data-price="50" onchange="updateTotal()"> Kaffee - 50€ <input type="number" class="quantity" data-item="getraenk" value="1" min="1" onchange="updateTotal()" /></label>
+        </div>
+
+        <!-- NACHTISCH -->
+        <div class="category">
+            <h2>🍨 NACHTISCH</h2>
+            <label><input type="checkbox" class="nachtisch" data-price="150" onchange="updateTotal()"> Himbeerdonut - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="nachtisch" data-price="100" onchange="updateTotal()"> Joghurt - 100€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="nachtisch" data-price="200" onchange="updateTotal()"> Eisbecher - 200€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="nachtisch" data-price="150" onchange="updateTotal()"> Erdbeer-Shake - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="nachtisch" data-price="150" onchange="updateTotal()"> Erdbeer-Eis - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" onchange="updateTotal()" /></label>
+            <label><input type="checkbox" class="nachtisch" data-price="150" onchange="updateTotal()"> Greentea-Eis - 150€ <input type="number" class="quantity" data-item="nachtisch" value="1" min="1" onchange="updateTotal()" /></label>
+        </div>
+
+        <!-- RESERVIERUNG / BESTELLUNG / MIETUNG / LIEFERUNG -->
+        <div class="category">
+            <h2>📅 RESERVIERUNG / BESTELLUNG / MIETUNG / LIEFERUNG</h2>
+            <label><input type="checkbox" class="extra" data-price="1500" onchange="updateTotal()"> Tischreservierung - 1500€</label>
+            <label><input type="checkbox" class="extra" data-price="10000" onchange="updateTotal()"> Geschlossene Gesellschaft (pro Stunde) - 10.000€</label>
+            <label><input type="checkbox" class="extra" data-price="20000" onchange="updateTotal()"> Mietung (pro Stunde) - 20.000€</label>
+            <label><input type="checkbox" class="extra" data-price="1500" onchange="updateTotal()"> Lieferung (innerhalb der Stadt) - 1500€</label>
+            <label><input type="checkbox" class="extra" data-price="3000" onchange="updateTotal()"> Lieferung (außerorts) - 3000€</label>
+        </div>
+
+        <!-- Gesamtbetrag -->
+        <div class="total">
+            Gesamtbetrag: <span id="totalAmount">0€</span>
+        </div>
+
+        <button onclick="generateInvoiceImage()">Rechnung als Bild senden</button>
+    </div>
+
+    <canvas id="invoiceCanvas" style="display:none;"></canvas>
+
+    <script>
+        const discordWebhookURL = 'https://discord.com/api/webhooks/1331810538317025330/XhMJmPovII7423zEwNZhfFTIOM86S0-9U0x-6eW3HAFVYfsZVMUU32AaRPIgN2A0IPpc'; // Dein Webhook
+
+        function updateTotal() {
+            let total = 0;
+            
+            // Calculate Pizza total
+            document.querySelectorAll('.pizza:checked, .burger:checked, .getraenk:checked, .nachtisch:checked, .extra:checked').forEach(item => {
+                const quantity = item.parentElement.querySelector('.quantity')?.value || 1;
+                total += parseInt(item.dataset.price) * parseInt(quantity);
+            });
+
+            document.getElementById('totalAmount').textContent = total + '€';
+        }
+
+        function calculateTotal() {
+            let netto = 0;
+
+            document.querySelectorAll('.pizza:checked, .burger:checked, .getraenk:checked, .nachtisch:checked, .extra:checked').forEach(item => {
+                const quantity = item.parentElement.querySelector('.quantity')?.value || 1;
+                netto += parseInt(item.dataset.price) * parseInt(quantity);
+            });
+
+            const mwst = netto * 0.19; // 19% Mehrwertsteuer
+            const gesamt = netto + mwst;
+
+            return { netto, mwst, gesamt };
+        }
+
+        function generateInvoiceNumber() {
+            return Math.floor(Math.random() * 10000000000);
+        }
+
+        function generateInvoiceImage() {
+            const { netto, mwst, gesamt } = calculateTotal();
+            const invoiceNumber = generateInvoiceNumber();
+            const canvas = document.getElementById('invoiceCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = 800;
+            canvas.height = 1000;
+
+            // Hintergrund
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Titel
+            ctx.font = 'bold 36px Arial';
+            ctx.fillStyle = '#000';
+            ctx.fillText('Pizzeria Carrello', 250, 50);
+
+            ctx.font = '20px Arial';
+            ctx.fillText('--------------------------------------', 50, 100);
+
+            // Artikel auflisten
+            let yPosition = 150;
+            ctx.font = '18px Arial';
+            document.querySelectorAll('.pizza:checked, .burger:checked, .getraenk:checked, .nachtisch:checked, .extra:checked').forEach(item => {
+                const quantity = item.parentElement.querySelector('.quantity')?.value || 1;
+                const name = item.parentElement.textContent.trim();
+                const price = parseInt(item.dataset.price) * parseInt(quantity);
+
+                ctx.fillText(`${name} x${quantity} - ${price.toFixed(2)}€`, 50, yPosition);
+                yPosition += 30;
+            });
+
+            ctx.fillText('--------------------------------------', 50, yPosition);
+            yPosition += 40;
+
+            // Netto, MwSt und Gesamtbetrag
+            ctx.font = '20px Arial';
+            ctx.fillText(`Netto-Betrag: ${netto.toFixed(2)}€`, 50, yPosition);
+            ctx.fillText(`MwSt. (19%): ${mwst.toFixed(2)}€`, 50, yPosition + 30);
+            ctx.fillText(`Gesamtbetrag: ${gesamt.toFixed(2)}€`, 50, yPosition + 60);
+
+            yPosition += 120;
+
+            // Adresse und Rechnungsnummer unten
+            ctx.fillText('--------------------------------------', 50, yPosition);
+            ctx.fillText('Adresse: Würfelpark 755, Stuttgart', 50, yPosition + 30);
+            ctx.fillText(`Rechnungsnummer: ${invoiceNumber}`, 50, yPosition + 60);
+
+            const imageDataURL = canvas.toDataURL('image/png');
+            sendImageToDiscord(imageDataURL, invoiceNumber);
+        }
+
+        function sendImageToDiscord(imageDataURL, invoiceNumber) {
+            const formData = new FormData();
+            formData.append('file', dataURItoBlob(imageDataURL), `Rechnung-${invoiceNumber}.png`);
+            formData.append('content', 'Neue Rechnung #' + invoiceNumber);
+
+            fetch(discordWebhookURL, {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Rechnung an Discord gesendet:', data);
+            })
+            .catch((error) => {
+                console.error('Fehler beim Senden der Rechnung:', error);
+            });
+        }
+
+        function dataURItoBlob(dataURI) {
+            const byteString = atob(dataURI.split(',')[1]);
+            const arrayBuffer = new ArrayBuffer(byteString.length);
+            const uintArray = new Uint8Array(arrayBuffer);
+            for (let i = 0; i < byteString.length; i++) {
+                uintArray[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([uintArray], { type: 'image/png' });
+        }
+    </script>
+</body>
+</html>
+    <div style="margin: 20px;">
+        <label for="lieferadresse">Adresse der Lieferung:</label><br>
+        <input type="text" id="lieferadresse" name="lieferadresse" style="width: 300px; margin: 5px 0;"><br>
+        
+        <input type="checkbox" id="showDelivery" name="showDelivery">
+        <label for="showDelivery">Lieferadresse auf Rechnung anzeigen</label>
+    </div>
+
+    <script>
+        const originalDrawInvoice = drawInvoice;
+        drawInvoice = function() {
+            const lieferadresse = document.getElementById('lieferadresse').value;
+            const showDelivery = document.getElementById('showDelivery').checked;
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = 800;
+            canvas.height = showDelivery ? 1100 : 900; // Increased height for delivery address
+            const ctx = canvas.getContext('2d');
+            
+            // Set white background
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'black';
+
+            // Draw header and items (from original function)
+            let yPosition = 100;
+            
+            // Company header
+            ctx.font = 'bold 24px Arial';
+            ctx.fillText('Firma XYZ', 50, yPosition);
+            yPosition += 40;
+
+            // Items and calculations
+            ctx.font = '20px Arial';
+            const items = document.querySelectorAll('.item');
+            let netto = 0;
+
+            items.forEach(item => {
+                const quantity = parseFloat(item.querySelector('.quantity').value) || 0;
+                const price = parseFloat(item.querySelector('.price').value) || 0;
+                const total = quantity * price;
+                netto += total;
+
+                ctx.fillText(`${quantity}x ${price.toFixed(2)}€ = ${total.toFixed(2)}€`, 50, yPosition);
+                yPosition += 30;
+            });
+
+            yPosition += 20;
+            ctx.fillText('--------------------------------------', 50, yPosition);
+            yPosition += 40;
+
+            // Show delivery address if checkbox is checked
+            if (showDelivery && lieferadresse) {
+                ctx.fillText('Lieferadresse:', 50, yPosition);
+                yPosition += 30;
+                ctx.fillText(lieferadresse, 50, yPosition);
+                yPosition += 40;
+                ctx.fillText('--------------------------------------', 50, yPosition);
+                yPosition += 40;
+            }
+
+            // Calculate totals
+            const mwst = netto * 0.19;
+            const gesamt = netto + mwst;
+
+            // Display totals
+            ctx.fillText(`Netto-Betrag: ${netto.toFixed(2)}€`, 50, yPosition);
+            ctx.fillText(`MwSt. (19%): ${mwst.toFixed(2)}€`, 50, yPosition + 30);
+            ctx.fillText(`Gesamtbetrag: ${gesamt.toFixed(2)}€`, 50, yPosition + 60);
+
+            yPosition += 120;
+
+            // Footer information
+            ctx.fillText('--------------------------------------', 50, yPosition);
+            ctx.fillText('Adresse: Würfelpark 755, Stuttgart', 50, yPosition + 30);
+            ctx.fillText(`Rechnungsnummer: ${invoiceNumber}`, 50, yPosition + 60);
+
+            const imageDataURL = canvas.toDataURL('image/png');
+            sendImageToDiscord(imageDataURL, invoiceNumber);
+        }
+    </script>
+
+
